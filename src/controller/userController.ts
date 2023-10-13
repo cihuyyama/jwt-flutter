@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { CreateUserInput, ForgotPasswordInput, ResetPasswordInput, VerifyUserInput } from "../schema/userSchema";
 import { createUser, findUserByEmail, findUserById } from "../service/userService";
 import { nanoid } from 'nanoid'
-import log from "../utils/logger";
+// import log from "../utils/logger";
 
 export async function createUserHandler(req: Request<{}, {}, CreateUserInput>, res: Response) {
     const body = req.body
@@ -57,7 +57,8 @@ export async function forgotPasswordHandler(req: Request<{}, {}, ForgotPasswordI
     const user = await findUserByEmail(email)
 
     if (!user) {
-        log.debug(`User with ${email} does not exists`)
+        // log.debug(`User with ${email} does not exists`)
+        console.log(`User with ${email} does not exists`)
         return res.status(404).send(message)
     }
 
@@ -71,7 +72,8 @@ export async function forgotPasswordHandler(req: Request<{}, {}, ForgotPasswordI
 
     await user.save()
 
-    log.debug(`Password reset email sent to ${email}`)
+    // log.debug(`Password reset email sent to ${email}`)
+    console.log(`Password reset email sent to ${email}`)
     return res.status(200).json({
         "message": "User succesfully created",
         "Verification Code": user.verificationCode,

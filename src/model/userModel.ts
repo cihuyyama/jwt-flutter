@@ -9,7 +9,7 @@ import {
 } from "@typegoose/typegoose";
 import { nanoid } from 'nanoid'
 import argon2 from "argon2";
-import log from "../utils/logger";
+// import log from "../utils/logger"
 
 export const privateFields = [
     "password",
@@ -63,7 +63,8 @@ export class User {
         try {
             return await argon2.verify(this.password, candidatePassword)
         } catch (error) {
-            log.error(error, "Could not validate password")
+            // log.error(error, "Could not validate password")
+            console.log("Could not validate password")
             return false
         }
     }

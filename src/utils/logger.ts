@@ -14,5 +14,3 @@ const log = pino(
   },
   stream
 );
-
-export default log;
