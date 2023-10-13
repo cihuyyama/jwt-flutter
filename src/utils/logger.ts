@@ -1,17 +1,18 @@
-import logger from "pino";
-import dayjs from "dayjs";
+import pino from "pino";
+import pretty from "pino-pretty";
 
-const level = 'info'
+const stream = pretty({
+  levelFirst: true,
+  colorize: true,
+  ignore: "time,hostname,pid",
+});
 
-const log = logger({
-    transport: {
-        target: 'pino-pretty'
-    },
-    level,
-    base: {
-        pid: false
-    },
-    timestamp: () => `,"time": "${dayjs().format()}"`,
-})
+const log = pino(
+  {
+    name: "Logger",
+    level: process.env.NODE_ENV === "development" ? "debug" : "info",
+  },
+  stream
+);
 
-export default log
+export default log;
