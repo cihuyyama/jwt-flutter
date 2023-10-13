@@ -8,14 +8,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getCurrentUserHandler = exports.resetPasswordHandler = exports.forgotPasswordHandler = exports.verifyUserHandler = exports.createUserHandler = void 0;
 const userService_1 = require("../service/userService");
 const nanoid_1 = require("nanoid");
-const logger_1 = __importDefault(require("../utils/logger"));
+// import log from "../utils/logger";
 function createUserHandler(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const body = req.body;
@@ -62,7 +59,8 @@ function forgotPasswordHandler(req, res) {
         const { email } = req.body;
         const user = yield (0, userService_1.findUserByEmail)(email);
         if (!user) {
-            logger_1.default.debug(`User with ${email} does not exists`);
+            // log.debug(`User with ${email} does not exists`)
+            console.log(`User with ${email} does not exists`);
             return res.status(404).send(message);
         }
         if (!user.verified) {
@@ -71,7 +69,8 @@ function forgotPasswordHandler(req, res) {
         const passwordResetCode = (0, nanoid_1.nanoid)();
         user.passwordResetCode = passwordResetCode;
         yield user.save();
-        logger_1.default.debug(`Password reset email sent to ${email}`);
+        // log.debug(`Password reset email sent to ${email}`)
+        console.log(`Password reset email sent to ${email}`);
         return res.status(200).json({
             "message": "User succesfully created",
             "Verification Code": user.verificationCode,

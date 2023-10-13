@@ -25,7 +25,7 @@ exports.User = exports.privateFields = void 0;
 const typegoose_1 = require("@typegoose/typegoose");
 const nanoid_1 = require("nanoid");
 const argon2_1 = __importDefault(require("argon2"));
-const logger_1 = __importDefault(require("../utils/logger"));
+// import log from "../utils/logger"
 exports.privateFields = [
     "password",
     "__v",
@@ -40,7 +40,8 @@ let User = class User {
                 return yield argon2_1.default.verify(this.password, candidatePassword);
             }
             catch (error) {
-                logger_1.default.error(error, "Could not validate password");
+                // log.error(error, "Could not validate password")
+                console.log("Could not validate password");
                 return false;
             }
         });

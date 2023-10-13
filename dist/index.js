@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 require("dotenv/config");
 const express_1 = __importDefault(require("express"));
 const connectToDb_1 = __importDefault(require("./utils/connectToDb"));
-const logger_1 = __importDefault(require("./utils/logger"));
+// import log from "./utils/logger";
 const routes_1 = __importDefault(require("./routes"));
 const deserializeUser_1 = __importDefault(require("./middleware/deserializeUser"));
 const cors_1 = __importDefault(require("cors"));
@@ -23,6 +23,7 @@ app.get('/', (req, res) => {
 app.use(routes_1.default);
 const port = 5000;
 app.listen(5000, () => {
-    logger_1.default.info(`App started at http://localhost:${port}`);
+    // log.info(`App started at http://localhost:${port}`)
+    console.log(`App started at http://localhost:${port}`);
     (0, connectToDb_1.default)();
 });
